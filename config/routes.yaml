@@ -1,0 +1,26 @@
+# These lines define a route using YAML configuration. The controller used by
+# the route (FrameworkBundle:Template:template) is a convenient shortcut when
+# the template can be rendered without executing any logic in your own controller.
+# See https://symfony.com/doc/current/cookbook/templating/render_without_controller.html
+homepage:
+    path: /{_locale}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        template: default/homepage.html.twig
+        _locale: '%locale%'
+
+testroute3:
+    path: /{_locale}/grow/routing/test_route3/{slug}.{_format}
+    controller: App\Controller\Grow\RoutingController::testRouting3
+    prefix: '/api'
+    requirements:
+        _locale: '%app_locales%'
+        slug: '\d+'
+        _format: 'html|rss'
+    defaults:
+        slug: 12345
+        _locale: '%locale%'
+        _format: 'html'
+    condition:  "context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/chrome/i'"
