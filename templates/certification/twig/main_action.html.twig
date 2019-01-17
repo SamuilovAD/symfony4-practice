@@ -1,0 +1,449 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {{ dump(app.environment) }}
+    {% for order in orders %}
+        {{ include('certification/twig/order/order_details.html.twig',{'order': order}) }}
+    {% endfor %}
+    <h3 class="h3">Array filters</h3>
+    <table id="filters-array" class="table table-hover table-bordered">
+    <tr>
+        <th></th>
+        <th>
+            filters
+        </th>
+        <th>
+            expressions
+        </th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>
+            abs
+        </td>
+        <td>
+            {% set abs1 = -7 %}
+            {{ abs1|abs }}
+            {% filter abs %}
+                -1
+            {% endfilter%}
+
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>
+            batch(size,fill) == array_chunk
+        </td>
+        <td>
+            {% set batchVar = [1,2,'a','q','qwert',2,3,4,5,78,9,9]|batch(7,'no item') %}
+            {{ dump(batchVar) }}
+        </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>
+            capitalize
+        </td>
+        <td>
+            {% set capit = 'abs batch, local'%}
+            {{ capit|capitalize }}
+        </td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>convert_encoding(to,from)</td>
+        <td>
+            {% set data = 'Russiiaa россия'%}
+            {{ data|convert_encoding('iso-2022-jp','UTF-8') }}
+        </td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>date(format,timezone)</td>
+        <td>
+            {{ orders[0].getUpdatedAt | date('Y-m-d') }}
+        </td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>date_modify(modifier)</td>
+        <td>
+            {{ orders[0].getUpdatedAt | date_modify('+24 days') | date('Y-m-d') }}
+        </td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>default(default value)</td>
+        <td>
+            {% set def = ''%}
+            {% filter default('no value2') %}{% endfilter %}
+            {{ def|default('no value')|capitalize }}
+        </td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>escape(strategy, charset) strategy = html, js, css, url, html-attr</td>
+        <td>
+            {% set escapeVariable = '<b>lol</b>'%}
+            {% filter escape('html') %}
+                {{ escapeVariable|raw }}
+            {% endfilter %}
+        </td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>first</td>
+        <td>
+            {% set firstVariable = [1,2,3,4,5]%}
+            {{ firstVariable|first }}
+        </td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>format(args) analog PHP sprintf</td>
+        <td>{{ "test %s string %s bar"| format("'Hello, world!'", "'bar'") }}</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>join(glue, and)</td>
+        <td>{{ [1, 2, 3]|join(', ', ' and ') }}</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>json_encode</td>
+        <td>{{ [1,4,6547,585,79879,87,"qwetr"] | json_encode() }}</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>keys</td>
+        <td>{{ dump({12:'suka',12:'pizdec',13:'nahoi',15:'blyat',23:'pidar',35756:'ubiyu',67:'suka'}|keys) }}</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>last</td>
+        <td>{{ [12,254235,15356,4625354,653,345]|last }}</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>
+            length
+            array == count()
+            obj impl __toString() == string length
+            iterableInterface == iterator_count()
+        </td>
+        <td>{{ "qwerty"|length ~ [23,423,54,2654,6537,5637,5]|length }}</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>lower</td>
+        <td>{{ "QewWrRTTYYY"|lower }}</td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>merge(array) == PHP array_merge()</td>
+        <td>{{ dump([2,125,23,5654,6,36,345,23]|merge(['qwer','qwewre','qwertret','qwetretewre'])) }}</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>nl2br</td>
+        <td>{{ "Hello, \nWorld!"|nl2br }}</td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>number_format(decimal,decimal point,thousands sep)</td>
+        <td>{{ (9000000000.1235)|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>
+            raw
+        </td>
+        <td>
+            {% autoescape %}
+                {{ "<strong>qwertretyr</strong>"|raw }}
+            {% endautoescape %}
+        </td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>replace(from)</td>
+        <td>{{ "I like tits and ==that=="|replace({'==that==': 'ass'}) }}</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>reverse</td>
+        <td>{{ "наварак"|reverse }}</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>round(precession,method)</td>
+        <td>{{ 123156.1231465|round(2, 'floor')}}</td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>slice(start, finish, preserve_keys) , analog PHP array_slice or mb_substr</td>
+        <td>{{ "Однажды был случай в далёком Макао"|slice(-5,5) }}</td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td>sort == PHP asort</td>
+        <td>{{ dump(['q','a','e','r']|sort) }}</td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td>split(delimiter,limit) == explode or str_split</td>
+        <td>{{ dump("test, test1, test2, test3, test4, test5"|split(',',3)) }}</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>striptags(allowable_tags)</td>
+        <td>{{ "<h1><i>Hello<i/></h1>"|striptags('<h1>')|raw }}</td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td>title</td>
+        <td>
+            {% filter title %}
+                Let's play
+            {% endfilter %}
+        </td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td>trim()</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td>upper</td>
+        <td>{{ "wqet qtwe Q qwet "|upper }}</td>
+    </tr>
+    <tr>
+        <td>31</td>
+        <td>url_encode</td>
+        <td>{{ "qwetq-qwerewt-*wertery-24" | url_encode }}</td>
+    </tr>
+</table>
+    <h3 class="h3">Array filter</h3>
+    <table id="filters" class="table table-hover table-bordered">
+    <tr>
+        <th></th>
+        <th>
+            filters
+        </th>
+        <th>
+            expressions
+        </th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>
+            abs
+        </td>
+        <td>
+            {% set abs1 = -7 %}
+            {{ abs1|abs }}
+            {% filter abs %}
+                -1
+            {% endfilter%}
+
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>
+            batch(size,fill) == array_chunk
+        </td>
+        <td>
+            {% set batchVar = [1,2,'a','q','qwert',2,3,4,5,78,9,9]|batch(7,'no item') %}
+            {{ dump(batchVar) }}
+        </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>
+            capitalize
+        </td>
+        <td>
+            {% set capit = 'abs batch, local'%}
+            {{ capit|capitalize }}
+        </td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>convert_encoding(to,from)</td>
+        <td>
+            {% set data = 'Russiiaa россия'%}
+            {{ data|convert_encoding('iso-2022-jp','UTF-8') }}
+        </td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>date(format,timezone)</td>
+        <td>
+            {{ orders[0].getUpdatedAt | date('Y-m-d') }}
+        </td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>date_modify(modifier)</td>
+        <td>
+            {{ orders[0].getUpdatedAt | date_modify('+24 days') | date('Y-m-d') }}
+        </td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>default(default value)</td>
+        <td>
+            {% set def = ''%}
+            {% filter default('no value2') %}{% endfilter %}
+            {{ def|default('no value')|capitalize }}
+        </td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>escape(strategy, charset) strategy = html, js, css, url, html-attr</td>
+        <td>
+            {% set escapeVariable = '<b>lol</b>'%}
+            {% filter escape('html') %}
+                {{ escapeVariable|raw }}
+            {% endfilter %}
+        </td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>first</td>
+        <td>
+            {% set firstVariable = [1,2,3,4,5]%}
+            {{ firstVariable|first }}
+        </td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>format(args) analog PHP sprintf</td>
+        <td>{{ "test %s string %s bar"| format("'Hello, world!'", "'bar'") }}</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>join(glue, and)</td>
+        <td>{{ [1, 2, 3]|join(', ', ' and ') }}</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>json_encode</td>
+        <td>{{ [1,4,6547,585,79879,87,"qwetr"] | json_encode() }}</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>keys</td>
+        <td>{{ dump({12:'suka',12:'pizdec',13:'nahoi',15:'blyat',23:'pidar',35756:'ubiyu',67:'suka'}|keys) }}</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>last</td>
+        <td>{{ [12,254235,15356,4625354,653,345]|last }}</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>
+            length
+            array == count()
+            obj impl __toString() == string length
+            iterableInterface == iterator_count()
+        </td>
+        <td>{{ "qwerty"|length ~ [23,423,54,2654,6537,5637,5]|length }}</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>lower</td>
+        <td>{{ "QewWrRTTYYY"|lower }}</td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>merge(array) == PHP array_merge()</td>
+        <td>{{ dump([2,125,23,5654,6,36,345,23]|merge(['qwer','qwewre','qwertret','qwetretewre'])) }}</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>nl2br</td>
+        <td>{{ "Hello, \nWorld!"|nl2br }}</td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>number_format(decimal,decimal point,thousands sep)</td>
+        <td>{{ (9000000000.1235)|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>
+            raw
+        </td>
+        <td>
+            {% autoescape %}
+                {{ "<strong>qwertretyr</strong>"|raw }}
+            {% endautoescape %}
+        </td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>replace(from)</td>
+        <td>{{ "I like tits and ==that=="|replace({'==that==': 'ass'}) }}</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>reverse</td>
+        <td>{{ "наварак"|reverse }}</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>round(precession,method)</td>
+        <td>{{ 123156.1231465|round(2, 'floor')}}</td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>slice(start, finish, preserve_keys) , analog PHP array_slice or mb_substr</td>
+        <td>{{ "Однажды был случай в далёком Макао"|slice(-5,5) }}</td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td>sort == PHP asort</td>
+        <td>{{ dump(['q','a','e','r']|sort) }}</td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td>split(delimiter,limit) == explode or str_split</td>
+        <td>{{ dump("test, test1, test2, test3, test4, test5"|split(',',3)) }}</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>striptags(allowable_tags)</td>
+        <td>{{ "<h1><i>Hello<i/></h1>"|striptags('<h1>')|raw }}</td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td>title</td>
+        <td>
+            {% filter title %}
+                Let's play
+            {% endfilter %}
+        </td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td>trim()</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td>upper</td>
+        <td>{{ "wqet qtwe Q qwet "|upper }}</td>
+    </tr>
+    <tr>
+        <td>31</td>
+        <td>url_encode</td>
+        <td>{{ "qwetq-qwerewt-*wertery-24" | url_encode }}</td>
+    </tr>
+</table>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<ul id="ululu">
+    {% for key, grow in grows %}
+        <li>{{ key }}-{{ attribute(grow,'getFirstName')~' '~attribute(grow,'getLastName') }}</li>
+    {% endfor %}
+</ul>
+<hr/>
+<ul id="ululu">
+    {% for key in grows|keys %}
+        <li>{{ key }}</li>
+    {% endfor %}
+</ul>
+<hr/>
+<p id="for-numeric">
+    {% for number in 0..10 %}
+            <span>{{ number }}</span>
+    {% endfor %}
+</p>
+<p id="for-alphabetic">
+    {% for letter in 'a'|upper..'z'|upper %}{{ loop.index }} - {{ letter }}&nbsp;&nbsp;&nbsp;{% endfor %}
+</p>
+<ul id="for-else">
+    {% for product in products %}
+        <li>{{ product }}</li>
+    {% else %}
+        <li>no products</li>
+    {% endfor %}
+</ul>

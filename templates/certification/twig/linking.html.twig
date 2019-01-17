@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1 >Certification. Twig linking</h1><br/>
+    <a href="{{ path('loop_for_action') }}">loop for</a>
+    <a href="{{ url('Grow_routing2',{slug: 2}) }}">grow routing</a>
+
+{% endblock %}

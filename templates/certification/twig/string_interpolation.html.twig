@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1 >Certification. Twig string interpolation</h1><br/>
+
+    {{ "#{1+2/123+1235}" }}
+    {% set test = 'qwertyuuiopp' %}
+    {{ "#{test~1234}" }}
+    {% dump test %}
+{% endblock %}

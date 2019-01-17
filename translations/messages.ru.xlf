@@ -18,7 +18,26 @@
                 <source>mit_license</source>
                 <target>MIT Лицензия</target>
             </trans-unit>
-
+            <trans-unit id="test_twig">
+                <source>twig test trans</source>
+                <target>тестируем как работает Twig</target>
+            </trans-unit>
+            <trans-unit id="test_twig1">
+                <source>twig test trans1</source>
+                <target>тестируем как работает Twig1</target>
+            </trans-unit>
+            <trans-unit id="test_twig3">
+                <source>twig test trans2</source>
+                <target>тестируем как работает Twig2</target>
+            </trans-unit>
+            <trans-unit id="test_twig2">
+                <source>hello, %name%</source>
+                <target>Привет, %name%</target>
+            </trans-unit>
+            <trans-unit id="test_twig4">
+                <source>loading, %percents%%</source>
+                <target>Загрузка %percents%%</target>
+            </trans-unit>
             <trans-unit id="http_error.name">
                 <source>http_error.name</source>
                 <target>Ошибка %status_code%</target>

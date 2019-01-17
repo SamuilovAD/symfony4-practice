@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+{% block sidebar %}
+    <h3>Functions page. sidebar extending</h3>
+    {{ parent() }}
+{% endblock %}
+{% block main %}
+    <h1 xmlns="http://www.w3.org/1999/html">Certification. Twig functions</h1><br/>
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>1</td>
+            <td>attribute(object, method, arguments)</td>
+            <td>{{ attribute(orders[0],'getUpdatedAt')|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>block(block, file)</td>
+            <td>
+                {% if block('test_block') is defined %}
+                    {{ block('test_block') }}
+                {% elseif block('test_block', 'certification/twig/block.html.twig') is defined %}
+                    {{ block('test_block', 'certification/twig/block.html.twig') }}
+                {% else %}
+                    <h2>block `test_block` not found</h2>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>constant(name|namespace, object)</td>
+            <td>
+                {{ constant('test_const') is defined ? 'constant `test_const` is defined' : 'constant `test_const` isn\'t defined' }}
+                <br/>
+                {{ constant('App\\Entity\\Order::TEST_CONST') }}
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>cycle(array, position)</td>
+            <td>{{ cycle(['tyc','tutuc','trampampam'],17) }}</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>date(date, timezone)</td>
+            <td>
+                {% set dateTestFunction = date('2019-1-1') %}
+                {% set dateTestFunction2 = date('-1 day') %}
+                {{ dump(dateTestFunction) }}
+                {{ dateTestFunction < dateTestFunction2 ? 'date2 > date1': 'date1 > date2' }}
+            </td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>dump(variable)</td>
+            <td>{{ dump(_context) }}</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>max(sequence)</td>
+            <td>
+                {{ max(1,2,3) }}<br/>
+                {{ max({2: "e", 1: "a", 3: "b", 5: "d", 4: "c"}) }}
+            </td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>min(sequence)</td>
+            <td>
+                {{ min(1,2,3) }}<br/>
+                {{ min({2: "e", 1: "a", 3: "b", 5: "d", 4: "c"}) }}
+            </td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>random(param)</td>
+            <td>
+                <br/>{{ random(['apple', 'orange', 'citrus']) }} {# example output: orange #}
+                <br/>{{ random('ABC') }}                         {# example output: C #}
+                <br/>{{ random() }}                              {# example output: 15386094 (works as the native PHP mt_rand function) #}
+                <br/>{{ random(5) }}                             {# example output: 3 #}
+            </td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>include(template,args,with_context,ignore_missing,sandboxed)</td>
+            <td>
+                {% filter default('impossible to include template') %}{{ include('test.html.twig', {arg1:'arg'}, with_context = false, ignore_missing = true, sandboxed=false) }}{% endfilter %}
+            </td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>parent()</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>range(low,high,step)</td>
+            <td>
+                {% for i in range(1,-5,1) %}
+                    {{ i~', ' }}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>source(template, ignore_missing)</td>
+            <td>{{ source('certification/twig/order/order_details.html') }}</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>template_from_string(templ)</td>
+            <td>{# include(template_from_string("Hello {{ name }}")) #}</td>
+        </tr>
+    </table>
+{% endblock %}

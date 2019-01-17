@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+    {{ testPageTitle }}
+    <br/>
+    {{ attribute(grow,'getFirstName') is defined ? 'Hello, '~attribute(grow,'getFirstName') : 'isn\'t defined' }}
+    {# function constant #}<br/>
+    {{ constant('GROW_CONST',grow) }}
+    {# function dump #}
+    {{ dump(grow, testPageTitle) }}
+    {{ include('certification/twig/action1_for_cycle.html.twig', {'grows': grows, 'products':[]}, with_context = false) }}
+    
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>Certification. Twig if condition</h1><br/>
+
+    {% set param1 = 'test' %}
+    {% set param2 = null %}
+    {% if param1 is defined %}
+        {{ 'param1 is defined' }}
+    {% else %}
+        {{ 'param1 is not defined' }}
+    {% endif %}
+
+    {% if param2 is not null %}
+        {{ 'param2 is not null' }}
+    {% else %}
+        {{ 'param2 is null' }}
+    {% endif %}
+{% endblock %}

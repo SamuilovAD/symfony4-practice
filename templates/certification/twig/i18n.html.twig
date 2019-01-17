@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>Certification. I18n</h1>
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>1</td>
+            <td>trans tag</td>
+            <td>
+                {% set name= 'сучара' %}
+                {% trans %}hello, %name%{% endtrans %}
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>transchoice tag</td>
+            <td>{% set count = 1 %}
+                {% transchoice count %}{0}twig test trans|{1}twig test trans1|{2}twig test trans{% endtranschoice %}</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>trans filter</td>
+            <td>
+                {{ 'hello, %name%'|trans({'%name%':'Pidorg'}) }}<br/>
+                {{ 'loading, %percents%%'|trans({'%percents%':'10'}) }}
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

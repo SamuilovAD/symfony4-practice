@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    <div>
+        <h2>{{ "App dump.user"|title }}</h2><br>
+        {{ dump(app.user) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "App dump.request"|title }}</h2><br>
+        {{ dump(app.request) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "App dump.session"|title }}</h2><br>
+        {{ dump(app.session) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "App dump.environment"|title }}</h2><br>
+        {{ dump(app.environment) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "App dump.debug"|title }}</h2><br>
+        {{ dump(app.debug) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "globals _self"|title }}</h2><br>
+        {{ dump(_self) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "globals _context"|title }}</h2><br>
+        {{ dump(_context) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "globals _charset"|title }}</h2><br>
+        {{ dump(_charset) }}<br/>
+    </div>
+    <div>
+        <h2>{{ "custom global test_globals"|title }}</h2><br>
+        {{ dump(test_globals) }}<br/>
+    </div>
+
+{% endblock %}

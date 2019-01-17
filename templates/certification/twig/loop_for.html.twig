@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1 >Certification. Twig loop for</h1><br/>
+    {% set exampleSequence = [1,'qwet','qweteqte',1325432] %}
+    {% for exampleSeqElement in exampleSequence if exampleSeqElement matches '/^\\d+$/' %}
+        {{ exampleSeqElement }}
+    {% endfor %}
+    <br>
+    {% for exampleSeqElement in 1..99 %}
+        {{ exampleSeqElement }}
+    {% endfor %}
+    <br>
+    {% for key, exampleSeqElement in exampleSequence %}
+        {{ key~': '~exampleSeqElement }}
+    {% endfor %}
+{% endblock %}
